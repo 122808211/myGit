@@ -11,10 +11,7 @@ class CheckToken
         $data["token"] = $request->param('token');
         $validate = new Validate();
         $validate->rule([
-            "token"=>"request",
-        ]);
-        $validate->message( [
-            'token' => 'token参数缺失',
+            "token"=>"require",
         ]);
         //没传
         if(!$validate->check($data)){

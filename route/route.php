@@ -10,7 +10,7 @@
 // +----------------------------------------------------------------------
 
 Route::group(":version",function (){
-    Route::resource('patient','api/:version.Patient');
+    Route::resource('archives','api/:version.Archives');
 })->middleware("CheckToken");
 Route::get(":version/token","api/:version.Token/getToken");
 

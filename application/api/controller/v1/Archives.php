@@ -2,13 +2,13 @@
 
 namespace app\api\controller\v1;
 
-use app\api\model\Patient as pa;
+use app\api\model\Archives as pa;
 use think\Controller;
 use think\facade\Session;
 use think\Request;
 use think\Validate;
 
-class Patient extends Controller
+class Archives extends Controller
 {
     /**
      * 查询患者信息
@@ -20,7 +20,7 @@ class Patient extends Controller
         $id = $this->request->param("id");
         if($id){
             $row["error_code"] = 0;
-            $row["data"] = pa::getPatient($id);
+            $row["data"] = pa::getArchives($id);
         }else{
             $row["error"] = "10001";
             $row["msg"] = "参数错误";
@@ -37,17 +37,16 @@ class Patient extends Controller
     public function save(Request $request)
     {
         $data = $request->param();
-        unset($data["/v1/patient"]);
-        unset($data["version"]);
         //验证请求参数是否正确
         $validate = new Validate();
         $validate->rule([
-           "name"=>"require",
+           "arname"=>"require",
            "idcard"=>"require",
            "sex"=>"require|between:0,1|number",
            "date"=>"require",
-           "site"=>"require",
-           "patient"=>"require|between:0,1|number",
+           "province"=>"require",
+           "city"=>"require",
+           "patient"=>"require|between:1,2|number",
            "token"=>"require",
         ]);
         $validate->message( [
@@ -59,7 +58,7 @@ class Patient extends Controller
         }
         $data["u_id"] = Session::get("id");
         $row["error_code"] = 0;
-        $row["data"] = pa::addPatient($data);
+        $row["data"] = pa::addArchives($data);
         return json($row,200);
     }
 

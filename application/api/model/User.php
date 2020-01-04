@@ -8,7 +8,8 @@ class User extends Model
 {
     public static function getInfo($data){
         $user = new User();
-        $info = $user->where("uname",$data["uname"])->where("pass",$data["pass"])->find();
+        $password = md5("yy_".md5($data["password"]));
+        $info = $user->where("username",$data["username"])->where("password",$password)->find();
         return $info;
     }
 }
