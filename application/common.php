@@ -10,3 +10,27 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+
+function gettree($arr,$row)
+{
+//    $tree = array();
+//    foreach ($arr as $val) {
+//        if (isset($arr[$val->pid])){
+//            $arr[$val->pid]->son[] = &$arr[$val->$id]; //非顶级分类
+//        } else {
+//            $tree[] = &$arr[$val->$id];
+//        }
+//    }
+//    return $tree;
+    $tree = array();
+    foreach ($arr as $k=>$v){
+        $tree[$k]["section"] = $arr[$k];
+        foreach ($row as $r){
+            if ($r["seid"]==$k){
+                unset($r["seid"]);
+                $tree[$k]["disease"][] = $r;
+            }
+        }
+    }
+    return $tree;
+}

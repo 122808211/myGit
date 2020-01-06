@@ -42,21 +42,21 @@ class Archives extends Controller
         $validate->rule([
            "arname"=>"require",
            "idcard"=>"require",
-           "sex"=>"require|between:0,1|number",
+           "sex"=>"require|between:1,2|number",
            "date"=>"require",
            "province"=>"require",
            "city"=>"require",
-           "patient"=>"require|between:1,2|number",
+           "isdefault"=>"require|between:1,2|number",
            "token"=>"require",
         ]);
         $validate->message( [
             'sex.number' => 'sex值必须是整数',
-            'patient.number' => 'patient值必须是整数',
+            'isdefault.number' => 'isdefault值必须是整数',
         ]);
         if (!$validate->check($data)) {
-            return json(["error_code"=>10001,"msg"=>$validate->getError()],400);
+            return json(["error_code"=>10002,"msg"=>$validate->getError()],400);
         }
-        $data["u_id"] = Session::get("id");
+        $data["mid"] = Session::get("id");
         $row["error_code"] = 0;
         $row["data"] = pa::addArchives($data);
         return json($row,200);
@@ -70,18 +70,18 @@ class Archives extends Controller
      */
     public function read($id)
     {
-        //
+        dump(11111);
     }
 
     /**
      * 显示编辑资源表单页.
      *
-     * @param  int  $id
+     * @param  int
      * @return \think\Response
      */
     public function edit($id)
     {
-        //
+        dump($id);
     }
 
     /**
@@ -93,7 +93,7 @@ class Archives extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dump(11111);
     }
 
     /**
@@ -104,6 +104,6 @@ class Archives extends Controller
      */
     public function delete($id)
     {
-        //
+        dump(11111);
     }
 }
